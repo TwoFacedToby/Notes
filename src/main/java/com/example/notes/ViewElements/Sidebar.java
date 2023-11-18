@@ -1,2 +1,10 @@
-package com.example.notes.ViewElements;public class Sidebar {
+package com.example.notes.ViewElements;
+
+import javafx.scene.layout.VBox;
+
+public class Sidebar extends VBox {
+
+    public Sidebar(){
+        setId("side-bar");
+    }
 }

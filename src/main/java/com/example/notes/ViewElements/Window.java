@@ -1,4 +1,4 @@
-package com.example.notes.view;
+package com.example.notes.ViewElements;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
