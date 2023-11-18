@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class TopBar extends HBox {
 
     NavigationEvents navEvents;
-    ArrayList<Link> ddLinks;
     public TopBar(){
         init();
     }
@@ -17,15 +16,15 @@ public class TopBar extends HBox {
     private void init(){
         setId("top-bar");
         navEvents = NavigationEvents.get();
-        ddLinks = NavigationEvents.getNav();
-        getChildren().addAll(initDropDowns());
+        getChildren().addAll(initDropDowns(NavigationEvents.getNav()));
 
 
     }
-    private ArrayList<DropDown> initDropDowns() {
-        ArrayList<DropDown> dd = new ArrayList<>();
-
-
-        return dd;
+    private ArrayList<DropDown> initDropDowns(ArrayList<Link> links) {
+        ArrayList<DropDown> dropDowns = new ArrayList<>();
+        for(int i = 0; i < links.size(); i++){
+            dropDowns.add(new DropDown(links.get(i)));
+        }
+        return dropDowns;
     }
 }

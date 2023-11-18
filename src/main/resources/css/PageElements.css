@@ -1,27 +1,40 @@
-root {
-    --sheet-background-color: #505050;
-    --menu-background-color: #404040;
-    --border-color: #202020;
-    --font-default-color: #cccccc;
-    --font-focused-color: #eeeeee;
+* {
+    -sheet-background-color: #303030;
+    -menu-background-color: #505050;
+    -border-color: #202020;
+    -font-default-color: #cccccc;
+    -font-focused-color: #eeeeee;
 }
 
 
 #view{
-    -fx-background-color:  var(--sheet-background-color);
+    -fx-background-color:  derive(-font-default-color, 0%);
+
 }
 #top-bar{
-    -fx-background-color:  var(--menu-background-color);
-    -fx-border-color: var(--border-color);
-    -fx-border-width: 2;
-    -fx-pref-height: 120;
-}
-#side-bar{
-    -fx-background-color:  var(--menu-background-color);
-    -fx-border-color: var(--border-color);
-    -fx-border-width: 2;
-    -fx-pref-width: 240;
+    -fx-background-color:  derive(-menu-background-color, -20%);
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: derive(-border-color, -20%);
+    -fx-border-width: 5;
+    -fx-pref-height: 50;
 }
 #drop-down{
 
+}
+#drop-down-label{
+
+}
+#drop-down-button{
+
+}
+#side-bar{
+    -fx-background-color:  derive(-menu-background-color, 0%);
+    -fx-pref-width: 240;
+}
+
+#sheet{
+    -fx-background-color: derive(-sheet-background-color, 0%);
+    -fx-border-style: hidden solid hidden solid;
+    -fx-border-color: derive(-border-color, 0%);
+    -fx-border-width: 2;
 }

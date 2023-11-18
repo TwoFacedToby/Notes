@@ -10,6 +10,7 @@ public class View  extends BorderPane {
         setTop(new TopBar());
         setLeft(new Sidebar());
         setRight(new Sidebar());
+        setCenter(new Page());
     }
 
 
