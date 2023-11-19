@@ -12,9 +12,12 @@ public class View extends BorderPane {
     public View(Stage stage){
         this.stage = stage;
         setId("view");
-        setTop(new TopBar(stage));
-        setLeft(new Sidebar(Direction.W, null));
+        setTop(new TopBar(this));
+        setLeft(new Sidebar(Direction.W, new CollectionView(null)));
         setRight(new Sidebar(Direction.E, null));
         setCenter(new Page());
+    }
+    public Stage getStage(){
+        return stage;
     }
 }

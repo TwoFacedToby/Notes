@@ -15,18 +15,18 @@ public class Sidebar extends BorderPane {
         this.direction = direction;
         setId("side-bar");
         setCenter(content);
-        init();
+        initHandle();
     }
-    private void init(){
+    private void initHandle(){
         VBox handle = new VBox();
         handle.setId("handle");
         if(direction == Direction.E){
             setLeft(handle);
-            setCursor(Cursor.W_RESIZE);
+            handle.setCursor(Cursor.W_RESIZE);
         }
         else{
             setRight(handle);
-            setCursor(Cursor.E_RESIZE);
+            handle.setCursor(Cursor.E_RESIZE);
         }
 
         setOnMousePressed((MouseEvent event) -> {
@@ -37,7 +37,6 @@ public class Sidebar extends BorderPane {
             xOffset = event.getSceneX();
             if(direction == Direction.E) setPrefWidth(getPrefWidth()-xDif);
             else setPrefWidth(getPrefWidth()+xDif);
-
         });
     }
 }

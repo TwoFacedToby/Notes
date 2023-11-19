@@ -59,6 +59,8 @@
 #side-bar{
     -fx-background-color:  derive(-menu-background-color, 0%);
     -fx-pref-width: 240;
+    -fx-min-width: 20;
+    -fx-max-width: 1500;
 }
 
 #sheet{
@@ -74,5 +76,7 @@
 #handle:hover{
     -fx-background-color: #737373;
 }
-
+#collection{
+    
+}
 

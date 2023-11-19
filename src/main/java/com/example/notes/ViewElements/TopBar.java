@@ -14,9 +14,11 @@ public class TopBar extends BorderPane {
 
     private double xOffset = 0;
     private double yOffset = 0;
+    private View view;
     private Stage stage;
-    public TopBar(Stage stage){
-        this.stage = stage;
+    public TopBar(View view){
+        this.view = view;
+        this.stage = view.getStage();
         init();
     }
 
