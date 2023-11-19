@@ -16,7 +16,7 @@
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-color: derive(-border-color, -5%);
     -fx-padding: 0 0 2 0;
-    -fx-border-width: 3;
+    -fx-border-width: 1;
     -fx-pref-height: 30;
 }
 #drop-down{
@@ -65,7 +65,14 @@
     -fx-background-color: derive(-sheet-background-color, 0%);
     -fx-border-style: hidden solid hidden solid;
     -fx-border-color: derive(-border-color, 0%);
-    -fx-border-width: 2;
+    -fx-border-width: 1;
+}
+#handle{
+    -fx-background-color: rgba(52,52,52,0.02);
+    -fx-pref-width: 10;
+}
+#handle:hover{
+    -fx-background-color: #737373;
 }
 
 

@@ -1,5 +1,6 @@
 package com.example.notes.ViewElements;
 
+import com.example.notes.Enums.Direction;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -7,7 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class StageResizeHandle extends GridPane {
-    private final double handleSize = 0.5;
+    private final double handleSize = 3;
     private final double handleExpandedSize = 10;
     private double xOffset = 0;
     private double yOffset = 0;
@@ -24,6 +25,7 @@ public class StageResizeHandle extends GridPane {
         });
     }
     private void setGrid(View view) {
+
         setStyle("-fx-background-color: rgba(52,52,52,0.02)");
         add(view, 0, 0);
         add(new Handle(Direction.E), 1, 0);
@@ -43,22 +45,13 @@ public class StageResizeHandle extends GridPane {
         add(new Handle(Direction.SE), 2, 2);
     }
 
-    enum Direction{
-        NW,
-        N,
-        NE,
-        W,
-        E,
-        SW,
-        S,
-        SE
-    }
+
 
     class Handle extends VBox {
         public Handle(Direction dir){
             setMouseTransparent(false);
             setMinSize(handleSize, handleSize);
-            setLayoutX(-10);
+
             switch (dir){
                 case E -> {
                     setCursor(Cursor.E_RESIZE);
@@ -89,6 +82,7 @@ public class StageResizeHandle extends GridPane {
                 case E:
                 case NE:
                 case SE:
+                    setTranslateX(-handleSize);
                     setOnMouseEntered(e->{
                         setStyle("-fx-background-color: #737373");
                         setMinSize(handleSize+handleExpandedSize, handleSize);
@@ -102,6 +96,7 @@ public class StageResizeHandle extends GridPane {
                     break;
                 case S:
                 case SW:
+                    setTranslateY(-handleSize);
                     setOnMouseEntered(e->{
                         setStyle("-fx-background-color: #737373");
                         setMinSize(handleSize, handleSize+handleExpandedSize);
