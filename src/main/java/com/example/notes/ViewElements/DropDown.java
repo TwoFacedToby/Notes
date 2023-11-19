@@ -1,25 +1,27 @@
 package com.example.notes.ViewElements;
 
 import com.example.notes.Navigation.Link;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
+import com.example.notes.Navigation.NavigationEvents;
+import javafx.scene.control.*;
 
-public class DropDown extends ComboBox {
+public class DropDown extends MenuButton {
     private Link link;
     public DropDown(Link link){
         setId("drop-down");
         this.link = link;
+        init();
     }
 
     private void init(){
-        Label label = new Label(link.getName());
-        label.setId("drop-down-label");
-        setValue(label);
-        getItems().add(label);
+
+        setText(link.getName());
         for(int i = 0; i < link.getChildren().size(); i++){
-            DropDown dd = new DropDown(link.getChildren().get(i));
-            getItems().add(dd);
+            MenuItem item = new MenuItem();
+            item.setId("drop-down-item");
+            item.setText(link.getChildren().get(i).getName());
+            int final_index = i;
+            item.setOnAction(e-> NavigationEvents.onNavClicked(link.getChildren().get(final_index)));
+            getItems().add(item);
         }
 
 

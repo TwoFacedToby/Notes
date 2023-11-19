@@ -1,4 +1,5 @@
 * {
+    -fx-background-color: transparent;
     -sheet-background-color: #303030;
     -menu-background-color: #505050;
     -border-color: #202020;
@@ -9,24 +10,52 @@
 
 #view{
     -fx-background-color:  derive(-font-default-color, 0%);
-
 }
 #top-bar{
     -fx-background-color:  derive(-menu-background-color, -20%);
     -fx-border-style: hidden hidden solid hidden;
-    -fx-border-color: derive(-border-color, -20%);
-    -fx-border-width: 5;
-    -fx-pref-height: 50;
+    -fx-border-color: derive(-border-color, -5%);
+    -fx-padding: 0 0 2 0;
+    -fx-border-width: 3;
+    -fx-pref-height: 30;
 }
 #drop-down{
-
+    -fx-background-color: derive(-menu-background-color, -10%);
+    -fx-pref-height: 30;
 }
-#drop-down-label{
 
+#drop-down .label{
+    -fx-text-fill: derive(-font-default-color, 0%);
+    -fx-font-size: 14;
 }
-#drop-down-button{
+#drop-down .context-menu{
+    -fx-padding: 0;
+}
+#drop-down-item{
+    -fx-background-color: derive(-menu-background-color, 20%);
+    -fx-pref-height: 30;
+}
+#drop-down .menu-item:focused{
+    -fx-background-color: derive(-menu-background-color, 30%);
+}
+#drop-down-item .label{
+    -fx-text-fill: derive(-font-default-color, 0%);
+    -fx-font-size: 13;
+}
+#top-bar-button{
+    -fx-background-color: derive(-menu-background-color, -10%);
+    -fx-pref-width: 50;
+    -fx-pref-height: 30;
+    -fx-font-size: 13;
+    -fx-text-fill: derive(-font-default-color, 0%);
+}
+#top-bar-button:hover{
+     -fx-background-color: derive(-menu-background-color, 10%);
+ }
 
-}
+
+
+
 #side-bar{
     -fx-background-color:  derive(-menu-background-color, 0%);
     -fx-pref-width: 240;
@@ -38,3 +67,5 @@
     -fx-border-color: derive(-border-color, 0%);
     -fx-border-width: 2;
 }
+
+
