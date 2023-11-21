@@ -24,7 +24,7 @@ public class TopBar extends BorderPane {
 
     private void init(){
         setId("top-bar");
-        setLeft(initDropDowns(NavigationEvents.getNav()));
+        setLeft(initDropDowns(NavigationEvents.get().getNav()));
         setRight(initButtons());
         initWindowDrag();
 
@@ -63,7 +63,7 @@ public class TopBar extends BorderPane {
 
         ArrayList<DropDown> dropdownArr = new ArrayList<>();
         for(int i = 0; i < links.size(); i++){
-            if(links.get(i).getParent() == null) dropdownArr.add(new DropDown(links.get(i))); //Adds the top dropdowns
+            if(links.get(i).getParent() == null) dropdownArr.add(new DropDown(links.get(i), view)); //Adds the top dropdowns
         }
         HBox dropdowns = new HBox();
         dropdowns.setSpacing(2);

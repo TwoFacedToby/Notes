@@ -71,12 +71,55 @@
 }
 #handle{
     -fx-background-color: rgba(52,52,52,0.02);
-    -fx-pref-width: 10;
+    -fx-pref-width: 4;
 }
 #handle:hover{
     -fx-background-color: #737373;
+    -fx-pref-width: 4;
 }
 #collection{
-    
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+
+}
+#collection-flow{
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+    -fx-background-color: derive(-menu-background-color, -30%);
+}
+#folding-view{
+    -fx-fit-to-width: true;
+    -fx-border-color: derive(-menu-background-color, 0%);
+    -fx-border-width: 1;
+}
+#folding-view-inner{
+    -fx-fit-to-width: true;
+    -fx-padding: 5 0 5 20;
+    -fx-background-color: derive(-menu-background-color, -40%);
+    -fx-spacing: 5;
+
+}
+#folding-view-button{
+    -fx-padding: 4 10 4 10;
+    -fx-border-radius: 0;
+    -fx-border-width: 1;
+    -fx-border-color: derive(-menu-background-color, -10%);
+    -fx-background-color: derive(-menu-background-color, -10%);
+}
+#folding-view-button:hover{
+    -fx-border-color: derive(-menu-background-color, 10%);
+    -fx-background-color: derive(-menu-background-color, 10%);
+}
+#folding-view-file{
+    -fx-fit-to-width: true;
+    -fx-background-color: derive(-menu-background-color, -40%);
+}
+#folding-view-file:hover{
+    -fx-background-color: derive(-menu-background-color, -20%)
+}
+#folding-view-label{
+    -fx-fit-to-width: true;
+    -fx-font-size: 14;
+    -fx-text-fill: derive(-font-default-color, 0%);
 }
 

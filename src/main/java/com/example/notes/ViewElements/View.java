@@ -9,11 +9,14 @@ import javafx.stage.Stage;
 public class View extends BorderPane {
     private Stage stage;
 
+    public CollectionView collection;
     public View(Stage stage){
         this.stage = stage;
+        collection = new CollectionView(this);
+
         setId("view");
         setTop(new TopBar(this));
-        setLeft(new Sidebar(Direction.W, new CollectionView(null)));
+        setLeft(new Sidebar(Direction.W, collection));
         setRight(new Sidebar(Direction.E, null));
         setCenter(new Page());
     }

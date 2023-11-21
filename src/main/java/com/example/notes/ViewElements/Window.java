@@ -1,5 +1,6 @@
 package com.example.notes.ViewElements;
 
+import com.example.notes.Navigation.NavigationEvents;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -28,6 +29,8 @@ public class Window extends Stage {
         show();
     }
     private void onClose(WindowEvent event){
+        NavigationEvents.get().getViews().remove(view);
+
         //event.consume();
     }
 

@@ -1,32 +1,36 @@
 package com.example.notes.Navigation;
 
+import com.example.notes.FileHandling.Directory;
+import com.example.notes.ViewElements.View;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class NavigationEvents {
+    private ArrayList<View> views = new ArrayList<>();
     private static NavigationEvents navEvents;
-    private static ArrayList<Link> topBar = new ArrayList<>();
-    private static ArrayList<Link> nav = new ArrayList<>();
+    private ArrayList<Directory> collections = new ArrayList<>();
+    private ArrayList<Link> nav = new ArrayList<>();
 
     public static NavigationEvents get(){
         if(navEvents == null) {
             navEvents = new NavigationEvents();
-            init();
         }
         return navEvents;
     }
 
-    private static void init(){
-        initLinks();
-        printNavToConsole();
-    }
-    public static ArrayList<Link> getNav(){
-        if(nav.size() == 0) initLinks();
+    public ArrayList<Link> getNav(){
+        if(nav.size() == 0) {
+            initLinks();
+            printNavToConsole();
+        }
         return nav;
+
     }
 
-    private static void initLinks(){
+    private void initLinks(){
+
         Link file = new Link("File \t \uD83D\uDD3D ", null);
             nav.add(file);
             new Link("New", file);
@@ -48,15 +52,26 @@ public class NavigationEvents {
             new Link("User Manual", help);
             new Link("Contact", help);
     }
-    private static void printNavToConsole(){
+    private void printNavToConsole(){
         for(int i = 0; i < nav.size(); i++){
             System.out.println(nav.get(i).getName() + ": " + nav.get(i).getLink());
         }
     }
-    public static void onNavClicked(Link link){
+    public void onNavClicked(Link link, View view){
         System.out.println(link.getName() + " Clicked");
     }
+    public ArrayList<View> getViews(){
+        return views;
+    }
 
+    public void openFile(File file){
 
+    }
+    public ArrayList<Directory> getCollections(){
+        return collections;
+    }
+    public void setCollections(ArrayList<Directory> collections){
+        this.collections = collections;
+    }
 
 }

@@ -6,7 +6,9 @@ import javafx.scene.control.*;
 
 public class DropDown extends MenuButton {
     private Link link;
-    public DropDown(Link link){
+    private View view;
+    public DropDown(Link link, View view){
+        this.view = view;
         setId("drop-down");
         this.link = link;
         init();
@@ -20,7 +22,7 @@ public class DropDown extends MenuButton {
             item.setId("drop-down-item");
             item.setText(link.getChildren().get(i).getName());
             int final_index = i;
-            item.setOnAction(e-> NavigationEvents.onNavClicked(link.getChildren().get(final_index)));
+            item.setOnAction(e-> NavigationEvents.get().onNavClicked(link.getChildren().get(final_index), view));
             getItems().add(item);
         }
 

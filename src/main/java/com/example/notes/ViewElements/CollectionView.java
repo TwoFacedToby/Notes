@@ -1,20 +1,23 @@
 package com.example.notes.ViewElements;
 
-import javafx.geometry.Orientation;
-import javafx.scene.layout.FlowPane;
+import com.example.notes.FileHandling.Directory;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 
-public class CollectionView extends FlowPane {
-    private String name;
-    public CollectionView(String name){
-        this.name = name;
+public class CollectionView extends ScrollPane {
+    private Directory collection;
+    private View view;
+    public CollectionView(View view){
+        this.view = view;
         setId("collection");
-        setOrientation(Orientation.VERTICAL);
-        if(name != null){
-            init();
-        }
     }
-    private void init(){
-
+    public void setDirectory(Directory collection){
+        this.collection = collection;
+        FoldingView foldingView = new FoldingView(collection, null, view);
+        VBox holder = new VBox();
+        holder.setId("collection-flow");
+        holder.getChildren().add(foldingView);
+        setContent(holder);
     }
 
 }
