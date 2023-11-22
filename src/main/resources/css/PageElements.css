@@ -94,7 +94,7 @@
 }
 #folding-view-inner{
     -fx-fit-to-width: true;
-    -fx-padding: 5 0 5 20;
+    -fx-padding: 5 0 5 10;
     -fx-background-color: derive(-menu-background-color, -40%);
     -fx-spacing: 5;
 
@@ -121,5 +121,8 @@
     -fx-fit-to-width: true;
     -fx-font-size: 14;
     -fx-text-fill: derive(-font-default-color, 0%);
+}
+#input-field{
+
 }
 

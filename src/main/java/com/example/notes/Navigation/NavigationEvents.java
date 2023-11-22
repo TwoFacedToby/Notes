@@ -1,6 +1,7 @@
 package com.example.notes.Navigation;
 
 import com.example.notes.FileHandling.Directory;
+import com.example.notes.ViewElements.Popup;
 import com.example.notes.ViewElements.View;
 import javafx.stage.Stage;
 
@@ -65,6 +66,44 @@ public class NavigationEvents {
     }
 
     public void openFile(File file){
+
+    }
+    public void createNew(Directory location){
+        Popup popup = new Popup(200, 100);
+        popup.setCanClickOutside(false);
+        popup.addTextInput(0, "Name");
+        popup.addFileTypeInput(1);
+        popup.addCloseButton("Create");
+        boolean gotValidAnswer = true;
+        Popup.Answer[] answers;
+        do{
+            gotValidAnswer = true;
+            answers = popup.showAndWaitForInput();
+            for(int i = 0; i < answers.length; i++){
+                if(answers[i] == null){
+                    gotValidAnswer = false;
+                }
+            }
+        }while(!gotValidAnswer);
+
+        String name = ((Popup.StringAnswer)answers[0]).getAnswer();
+        Popup.FileType fileType = ((Popup.FileTypeAnswer)answers[1]).getAnswer();
+
+        switch (fileType){
+            case FILE -> createFile(location, name);
+            case FOLDER -> createDirectory(location, name);
+            case COLLECTION -> createCollection(name);
+        }
+    }
+    public void createFile(Directory location, String name){
+        System.out.println(location.getName() + " / " + name);
+    }
+    public void createDirectory(Directory location, String name){
+        System.out.println(location.getName() + " / " + name);
+
+    }
+    public void createCollection(String name){
+        System.out.println("collections / " + name);
 
     }
     public ArrayList<Directory> getCollections(){
