@@ -17,6 +17,7 @@ public class Directory {
         this.file = file;
         this.parent = parent;
         this.name = file.getName();
+        this.path = file.getPath();
         init();
     }
     private void init(){

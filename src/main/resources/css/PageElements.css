@@ -122,7 +122,19 @@
     -fx-font-size: 14;
     -fx-text-fill: derive(-font-default-color, 0%);
 }
-#input-field{
+#popup-input-field{
+    -fx-background-color: derive(-menu-background-color, -20%);
+    -fx-border-color: derive(-menu-background-color, 10%);
 
+}
+#popup-button{
+    -fx-background-color: derive(-menu-background-color, -20%);
+    -fx-border-color: derive(-menu-background-color, 10%);
+
+}
+#popup-view{
+    -fx-background-color: derive(-menu-background-color, -10%);
+    -fx-padding: 20;
+    -fx-spacing: 10;
 }
 

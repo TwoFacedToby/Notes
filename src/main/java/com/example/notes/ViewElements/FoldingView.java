@@ -68,7 +68,10 @@ public class FoldingView extends VBox {
         setDirectory(directory);
     }
     private void addToFolder(){
-        NavigationEvents.get().createNew(directory);
+        NavigationEvents.get().createNew(view, this);
+    }
+    public Directory getDirectory(){
+        return this.directory;
     }
     private void openClose(){
         if(getChildren().contains(children)) {
@@ -84,6 +87,9 @@ public class FoldingView extends VBox {
         this.directory = directory;
         updateName();
         updateChildrenViews();
+    }
+    public View getView(){
+        return view;
     }
     public void updateName(){
         buttonLabel.setText(directory.getName());

@@ -1,5 +1,6 @@
 package com.example.notes.ViewElements;
 
+import com.example.notes.FileHandling.Directory;
 import com.example.notes.Navigation.NavigationEvents;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -14,8 +15,8 @@ public class Window extends Stage {
     private Scene scene;
     private View view;
 
-    public Window(){
-        view = new View(this);
+    public Window(Directory collection){
+        view = new View(this, collection);
         StageResizeHandle resizeHandle = new StageResizeHandle(view, this);
         scene = new Scene(resizeHandle, width, height);
 

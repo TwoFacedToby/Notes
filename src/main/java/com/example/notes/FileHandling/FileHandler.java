@@ -1,7 +1,6 @@
 package com.example.notes.FileHandling;
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class FileHandler {
     static final String globalPath = "src/main/Files";
@@ -12,14 +11,13 @@ public class FileHandler {
         return new File(path);
     }
     public static File createCollection(String name) {
-        File parentDirectory = getFileOrDirectory(globalPath + "/" + name);
-        File newDirectory = new File(parentDirectory, name);
+        File newCollection = getFileOrDirectory(globalPath + "/" + name);
 
-        if (newDirectory.mkdirs()) {
-            System.out.println("Directory created successfully: " + newDirectory.getAbsolutePath());
-            return newDirectory;
+        if (newCollection.mkdirs()) {
+            System.out.println("Directory created successfully: " + newCollection.getAbsolutePath());
+            return newCollection;
         } else {
-            System.err.println("Failed to create directory: " + newDirectory.getAbsolutePath());
+            System.err.println("Failed to create directory: " + newCollection.getAbsolutePath());
             return null;
         }
     }

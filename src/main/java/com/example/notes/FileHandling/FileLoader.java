@@ -59,11 +59,20 @@ public class FileLoader {
     }
     public static Directory createDirectory(Directory parent, String name){
         File file = FileHandler.createDirectory(parent.getPath(), name);
+
         if(file != null){
+            System.out.println("Directory Created");
             Directory dir = new Directory(file, parent);
             parent.getChildren().add(dir);
             return dir;
         }
+        System.out.println("Directory Not Created");
+
+        return null;
+    }
+    public static File createFile(Directory parent, String name){
+
+
         return null;
     }
 

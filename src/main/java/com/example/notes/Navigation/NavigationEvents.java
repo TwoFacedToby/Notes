@@ -1,9 +1,8 @@
 package com.example.notes.Navigation;
 
 import com.example.notes.FileHandling.Directory;
-import com.example.notes.ViewElements.Popup;
-import com.example.notes.ViewElements.View;
-import javafx.stage.Stage;
+import com.example.notes.FileHandling.FileLoader;
+import com.example.notes.ViewElements.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -60,6 +59,11 @@ public class NavigationEvents {
     }
     public void onNavClicked(Link link, View view){
         System.out.println(link.getName() + " Clicked");
+        switch (link.getName()){
+            case "New" -> {
+                createNew(view, null);
+            }
+        }
     }
     public ArrayList<View> getViews(){
         return views;
@@ -68,9 +72,17 @@ public class NavigationEvents {
     public void openFile(File file){
 
     }
-    public void createNew(Directory location){
-        Popup popup = new Popup(200, 100);
+    public void createNew(View view, FoldingView foldView){
+        Directory location;
+
+        Popup popup = new Popup(200, 200);
         popup.setCanClickOutside(false);
+        if(foldView == null){
+            location = view.getCurrentCollection();
+        }
+        else{
+            location = foldView.getDirectory();
+        }
         popup.addTextInput(0, "Name");
         popup.addFileTypeInput(1);
         popup.addCloseButton("Create");
@@ -79,32 +91,64 @@ public class NavigationEvents {
         do{
             gotValidAnswer = true;
             answers = popup.showAndWaitForInput();
-            for(int i = 0; i < answers.length; i++){
-                if(answers[i] == null){
-                    gotValidAnswer = false;
-                }
+            try{
+                if(((Popup.StringAnswer)answers[0]).getAnswer().equals("")) gotValidAnswer = false;
+                Popup.FileType checkIfCanParse;
+                if(foldView != null) checkIfCanParse = ((Popup.FileTypeAnswer)answers[1]).getAnswer();
+            }catch(Exception e){
+                gotValidAnswer = false;
             }
+            if(!gotValidAnswer){
+                Popup retry = new Popup(200, 100);
+                retry.addMessage("Invalid Input");
+                retry.addChoiceButton("Retry", "Retry", 0);
+                retry.addChoiceButton("Cancel", "Cancel", 0);
+                Popup.Answer[] retryAnswers = retry.showAndWaitForInput();
+                if(retryAnswers == null) return;
+                if(retryAnswers[0] == null) return;
+                String strAnswer = ((Popup.StringAnswer)retryAnswers[0]).getAnswer();
+                if(!strAnswer.equals("Retry")) return;
+
+            }
+
         }while(!gotValidAnswer);
 
         String name = ((Popup.StringAnswer)answers[0]).getAnswer();
         Popup.FileType fileType = ((Popup.FileTypeAnswer)answers[1]).getAnswer();
 
         switch (fileType){
-            case FILE -> createFile(location, name);
-            case FOLDER -> createDirectory(location, name);
-            case COLLECTION -> createCollection(name);
+            case FILE -> createFile(location, name, foldView, view);
+            case FOLDER -> createDirectory(location, name, foldView, view);
+            case COLLECTION -> {
+                createCollection(name);
+
+            }
         }
+
+
     }
-    public void createFile(Directory location, String name){
-        System.out.println(location.getName() + " / " + name);
+    public void createFile(Directory location, String name, FoldingView foldView, View view){
+        FileLoader.createFile(location, name);
+        if((foldView == null)) System.out.println("Foldview is null") ;
+        else System.out.println("Foldview is not null") ;
+        if(foldView != null) foldView.updateChildrenViews();
+        else view.resetCollections();
+
     }
-    public void createDirectory(Directory location, String name){
-        System.out.println(location.getName() + " / " + name);
+    public void createDirectory(Directory location, String name, FoldingView foldView, View view){
+        FileLoader.createDirectory(location, name);
+        System.out.println(location.getName());
+        if((foldView == null)) System.out.println("Foldview is null") ;
+        else System.out.println("Foldview is not null") ;
+        if(foldView != null) foldView.updateChildrenViews();
+        else view.resetCollections();
 
     }
     public void createCollection(String name){
-        System.out.println("collections / " + name);
-
+        Directory collection = FileLoader.createCollection(name);
+        Window window = new Window(collection);
+        window.getView().setCurrentCollection(collection);
+        window.getView().resetCollections();
     }
     public ArrayList<Directory> getCollections(){
         return collections;
