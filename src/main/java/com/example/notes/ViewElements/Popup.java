@@ -1,8 +1,11 @@
 package com.example.notes.ViewElements;
 
 import javafx.event.Event;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -13,18 +16,47 @@ public class Popup extends Stage {
 
     private Answer[] answers;
     private int arraySize = 0;
+    private boolean shouldReturnInfo = false;
+    BorderPane topBar;
     VBox content;
     Scene scene;
-    HBox choiceButtons;
+    private HBox choiceButtons;
+    private String title;
+    private ChoiceBox<String> answerBox;
 
-    public Popup(double width, double height){
+    public Popup(double width, double height, String title){
+        this.title = title;
         content = new VBox();
-        scene = new Scene(content, width, height);
+        initTopBar();
+        BorderPane window = new BorderPane();
+        window.setTop(topBar);
+        window.setCenter(content);
+        scene = new Scene(window, width, height);
         setScene(scene);
-        initStyle(StageStyle.UTILITY);
-        scene.getStylesheets().add(getClass().getResource("/css/PageElements.css").toExternalForm());
+        initStyle(StageStyle.UNDECORATED);
+        initStyle(StageStyle.TRANSPARENT);
+        scene.getStylesheets().add(getClass().getResource("/css/PopupElements.css").toExternalForm());
         content.setId("popup-view");
 
+    }
+
+    private void initTopBar(){
+        topBar = new BorderPane();
+        topBar.setId("top-bar");
+        VBox centerer = new VBox();
+        Label titleLabel = new Label(title); //Label
+        titleLabel.setId("top-bar-label");
+        centerer.getChildren().add(titleLabel);
+        centerer.setAlignment(Pos.CENTER);
+        //centerer.setPadding(new Insets(0, 0, 0, 20));
+        topBar.setLeft(centerer);
+        Button close = new Button("X"); //Close Button
+        close.setId("top-bar-button");
+        close.setOnAction(e->{close();});
+        String closeDefaultStyle = close.getStyle();
+        close.setOnMouseEntered(e->{close.setStyle(closeDefaultStyle + "; -fx-background-color: #be1717");});
+        close.setOnMouseExited(e->{close.setStyle(closeDefaultStyle);});
+        topBar.setRight(close);
     }
 
     public void setClosable(boolean bool){
@@ -43,7 +75,8 @@ public class Popup extends Stage {
     }
     public Answer[] showAndWaitForInput(){
         showAndWait();
-        return answers;
+        if(shouldReturnInfo) return answers;
+        return null;
     }
     private void setDefaultAnswer(Answer answer, int index){
         if(answers == null) {
@@ -63,14 +96,24 @@ public class Popup extends Stage {
     public void addCloseButton(String text){
         Button button = new Button(text);
         button.setId("popup-button");
-        button.setOnAction(e->close());
+        button.setOnAction(e->{
+            shouldReturnInfo = true;
+            close();
+        });
         content.getChildren().add(button);
     }
     public void addMessage(String message){
         Label label = new Label(message);
+        label.setId("popup-label");
         content.getChildren().add(label);
     }
-    public void addChoiceButton(String name, String toReturn, int expectedIndex){
+    public void addSpacer(double spacing){
+        VBox spacer = new VBox();
+        spacer.setMinHeight(spacing);
+        spacer.setMaxHeight(spacing);
+        content.getChildren().add(spacer);
+    }
+    public void addChoiceButton(String name, int expectedIndex){
         if(choiceButtons == null) {
             setDefaultAnswer(new StringAnswer(""), arraySize++);
             choiceButtons = new HBox();
@@ -79,9 +122,23 @@ public class Popup extends Stage {
         Button button = new Button(name);
         choiceButtons.getChildren().add(button);
         button.setOnAction(e -> {
-            answers[expectedIndex] = new StringAnswer(toReturn);
+            answers[expectedIndex] = new StringAnswer(name);
+            shouldReturnInfo = true;
             close();
         });
+    }
+    public void addDropDownChoice(String name, int expectedIndex){
+        if(answerBox == null){
+            setDefaultAnswer(new StringAnswer(name), arraySize++);
+            answerBox = new ChoiceBox<>();
+            answerBox.setValue(name);
+            answerBox.setId("popup-drop-down");
+            content.getChildren().add(answerBox);
+            answerBox.setOnAction(e->{
+                answers[expectedIndex] = new StringAnswer(name);
+            });
+        }
+        answerBox.getItems().add(name);
     }
 
     public void addTextInput(int expectedIndex, String prompt){
@@ -93,30 +150,7 @@ public class Popup extends Stage {
         input.setOnKeyTyped(e->{
             answers[expectedIndex] = new StringAnswer(input.getText());
         });
-
-
-
     }
-    public void addFileTypeInput(int expectedIndex){
-        setDefaultAnswer(new FileTypeAnswer(FileType.FILE), arraySize++);
-        ChoiceBox<String> answerBox = new ChoiceBox<>();
-        answerBox.setId("drop-down");
-        answerBox.getItems().addAll(FileType.FILE.name(), FileType.FOLDER.name(), FileType.COLLECTION.name());
-        answerBox.setOnAction(e->{
-            if(answerBox.getValue().equals(FileType.FILE.name())){
-                answers[expectedIndex] = new FileTypeAnswer(FileType.FILE);
-            }
-            else if(answerBox.getValue().equals(FileType.FOLDER.name())){
-                answers[expectedIndex] = new FileTypeAnswer(FileType.FOLDER);
-            }
-            else if(answerBox.getValue().equals(FileType.COLLECTION.name())){
-                answers[expectedIndex] = new FileTypeAnswer(FileType.COLLECTION);
-            }
-        });
-        answerBox.setValue(FileType.FILE.name());
-        content.getChildren().add(answerBox);
-    }
-
 
 
     public interface Answer {
@@ -139,28 +173,6 @@ public class Popup extends Stage {
         }
         public int getAnswer(){
             return intAnswer;
-        }
-    }
-    public class FileTypeAnswer implements Answer {
-        private FileType typeAnswer;
-
-        public FileTypeAnswer(FileType typeAnswer){
-            this.typeAnswer = typeAnswer;
-        }
-
-        public FileType getAnswer(){
-            return typeAnswer;
-        }
-
-    }
-    public enum FileType {
-        FOLDER("Folder"),
-        COLLECTION("Collection"),
-        FILE("File"),
-        ;
-
-        FileType(String toDisplay) {
-
         }
     }
 }

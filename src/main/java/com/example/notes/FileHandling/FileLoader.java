@@ -21,13 +21,16 @@ public class FileLoader {
         return collections;
     }
     private static void init(){
+        updateCollections();
+        printCollections();
+    }
+    public static void updateCollections(){
         File mainDirectory = FileHandler.getTopFile();
         File[] collectionArr = mainDirectory.listFiles();
         for(int i = 0; i < collectionArr.length; i++){
             Directory dir = new Directory(collectionArr[i], null);
             collections.add(dir);
         }
-        printCollections();
     }
     private static void printCollections(){
         for(int i = 0; i < collections.size(); i++){

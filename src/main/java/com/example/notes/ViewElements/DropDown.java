@@ -22,7 +22,7 @@ public class DropDown extends MenuButton {
             item.setId("drop-down-item");
             item.setText(link.getChildren().get(i).getName());
             int final_index = i;
-            item.setOnAction(e-> NavigationEvents.get().onNavClicked(link.getChildren().get(final_index), view));
+            item.setOnAction(e-> view.getNavEvents().onNavClicked(link.getChildren().get(final_index), view));
             getItems().add(item);
         }
 

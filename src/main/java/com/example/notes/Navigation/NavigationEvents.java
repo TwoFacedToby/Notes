@@ -8,16 +8,13 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class NavigationEvents {
-    private ArrayList<View> views = new ArrayList<>();
+    private View view;
     private static NavigationEvents navEvents;
-    private ArrayList<Directory> collections = new ArrayList<>();
+    private Directory collection;
     private ArrayList<Link> nav = new ArrayList<>();
 
-    public static NavigationEvents get(){
-        if(navEvents == null) {
-            navEvents = new NavigationEvents();
-        }
-        return navEvents;
+    public NavigationEvents(View view){
+        this.view = view;
     }
 
     public ArrayList<Link> getNav(){
@@ -61,68 +58,78 @@ public class NavigationEvents {
         System.out.println(link.getName() + " Clicked");
         switch (link.getName()){
             case "New" -> {
-                createNew(view, null);
+                createNew(null);
             }
         }
     }
-    public ArrayList<View> getViews(){
-        return views;
+    public View getView(){
+        return view;
     }
 
     public void openFile(File file){
 
     }
-    public void createNew(View view, FoldingView foldView){
+    public void createNew(FoldingView foldView){
         Directory location;
 
-        Popup popup = new Popup(200, 200);
+        Popup popup = new Popup(200, 200, "Create New");
         popup.setCanClickOutside(false);
+        popup.addMessage("Choose Name Of File:");
+        popup.addTextInput(0, "Name");
+        popup.addSpacer(10);
         if(foldView == null){
             location = view.getCurrentCollection();
+            popup.addMessage("Choose Filetype:");
+            if(location == null){
+                popup.addDropDownChoice("Collection",1);
+            }
+            else{
+                popup.addDropDownChoice("File",1);
+                popup.addDropDownChoice("Folder",1);
+                popup.addDropDownChoice("Collection",1);
+            }
         }
         else{
             location = foldView.getDirectory();
+            popup.addDropDownChoice("File",1);
+            popup.addDropDownChoice("Folder",1);
         }
-        popup.addTextInput(0, "Name");
-        popup.addFileTypeInput(1);
+        popup.addSpacer(10);
         popup.addCloseButton("Create");
-        boolean gotValidAnswer = true;
+
+
+        boolean gotValidAnswer;
         Popup.Answer[] answers;
         do{
             gotValidAnswer = true;
             answers = popup.showAndWaitForInput();
+            if(answers == null) return;
             try{
                 if(((Popup.StringAnswer)answers[0]).getAnswer().equals("")) gotValidAnswer = false;
-                Popup.FileType checkIfCanParse;
-                if(foldView != null) checkIfCanParse = ((Popup.FileTypeAnswer)answers[1]).getAnswer();
             }catch(Exception e){
                 gotValidAnswer = false;
             }
             if(!gotValidAnswer){
-                Popup retry = new Popup(200, 100);
-                retry.addMessage("Invalid Input");
-                retry.addChoiceButton("Retry", "Retry", 0);
-                retry.addChoiceButton("Cancel", "Cancel", 0);
+                Popup retry = new Popup(200, 100, "Invalid Input");
+                retry.addMessage("There was a problem with your input.");
+                retry.addChoiceButton("Try Again",  0);
+                retry.addChoiceButton("Cancel",  0);
                 Popup.Answer[] retryAnswers = retry.showAndWaitForInput();
                 if(retryAnswers == null) return;
                 if(retryAnswers[0] == null) return;
                 String strAnswer = ((Popup.StringAnswer)retryAnswers[0]).getAnswer();
                 if(!strAnswer.equals("Retry")) return;
-
             }
 
         }while(!gotValidAnswer);
 
         String name = ((Popup.StringAnswer)answers[0]).getAnswer();
-        Popup.FileType fileType = ((Popup.FileTypeAnswer)answers[1]).getAnswer();
+        String fileType = ((Popup.StringAnswer)answers[1]).getAnswer();
 
         switch (fileType){
-            case FILE -> createFile(location, name, foldView, view);
-            case FOLDER -> createDirectory(location, name, foldView, view);
-            case COLLECTION -> {
-                createCollection(name);
-
-            }
+            case "File" -> createFile(location, name, foldView, view);
+            case "Folder" -> createDirectory(location, name, foldView, view);
+            case "Collection" -> createCollection(name);
         }
 
 
@@ -150,11 +157,11 @@ public class NavigationEvents {
         window.getView().setCurrentCollection(collection);
         window.getView().resetCollections();
     }
-    public ArrayList<Directory> getCollections(){
-        return collections;
+    public Directory getCollection(){
+        return collection;
     }
-    public void setCollections(ArrayList<Directory> collections){
-        this.collections = collections;
+    public void setCollection(Directory collection){
+        this.collection = collection;
     }
 
 }

@@ -68,7 +68,7 @@ public class FoldingView extends VBox {
         setDirectory(directory);
     }
     private void addToFolder(){
-        NavigationEvents.get().createNew(view, this);
+        view.getNavEvents().createNew(this);
     }
     public Directory getDirectory(){
         return this.directory;

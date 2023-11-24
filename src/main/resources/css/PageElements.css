@@ -13,10 +13,7 @@
 }
 #top-bar{
     -fx-background-color:  derive(-menu-background-color, -20%);
-    -fx-border-style: hidden hidden solid hidden;
-    -fx-border-color: derive(-border-color, -5%);
     -fx-padding: 0 0 2 0;
-    -fx-border-width: 1;
     -fx-pref-height: 30;
 }
 #drop-down{
@@ -122,19 +119,5 @@
     -fx-font-size: 14;
     -fx-text-fill: derive(-font-default-color, 0%);
 }
-#popup-input-field{
-    -fx-background-color: derive(-menu-background-color, -20%);
-    -fx-border-color: derive(-menu-background-color, 10%);
 
-}
-#popup-button{
-    -fx-background-color: derive(-menu-background-color, -20%);
-    -fx-border-color: derive(-menu-background-color, 10%);
-
-}
-#popup-view{
-    -fx-background-color: derive(-menu-background-color, -10%);
-    -fx-padding: 20;
-    -fx-spacing: 10;
-}
 

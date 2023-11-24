@@ -30,7 +30,6 @@ public class Window extends Stage {
         show();
     }
     private void onClose(WindowEvent event){
-        NavigationEvents.get().getViews().remove(view);
 
         //event.consume();
     }

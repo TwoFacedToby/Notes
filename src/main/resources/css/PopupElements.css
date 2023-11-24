@@ -1,0 +1,97 @@
+* {
+    -fx-background-color: transparent;
+    -sheet-background-color: #303030;
+    -menu-background-color: #505050;
+    -border-color: #202020;
+    -font-default-color: #cccccc;
+    -font-focused-color: #eeeeee;
+}
+
+#popup-input-field{
+    -fx-background-color: derive(-menu-background-color, -20%);
+    -fx-border-color: derive(-menu-background-color, 10%);
+    -fx-text-fill: derive(-font-default-color, 0%);
+    -fx-prompt-text-fill: derive(-font-default-color, -30%);
+    -fx-text-alignment: center;
+}
+
+#popup-view{
+    -fx-background-color: derive(-menu-background-color, -10%);
+    -fx-padding: 10;
+    -fx-alignment: top-center;
+    -fx-spacing: 2;
+}
+#popup-label{
+    -fx-text-fill: derive(-font-default-color, 0%);
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+#popup-button{
+    -fx-padding: 4 10 4 10;
+    -fx-border-radius: 0;
+    -fx-border-width: 1;
+    -fx-text-fill: derive(-font-default-color, -10%);
+    -fx-border-color: derive(-menu-background-color, -10%);
+    -fx-background-color: derive(-menu-background-color, -10%);
+}
+#popup-button:hover{
+    -fx-text-fill: derive(-font-default-color, -10%);
+    -fx-border-color: derive(-menu-background-color, 10%);
+    -fx-background-color: derive(-menu-background-color, 10%);
+}
+#top-bar{
+    -fx-background-color: derive(-menu-background-color, -20%);
+    -fx-border-color: derive(-menu-background-color, 10%);
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}
+#top-bar-label{
+    -fx-text-fill: derive(-font-default-color, 0%);
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+    -fx-padding: 0 0 0 5;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+#top-bar-button{
+    -fx-background-color: derive(-menu-background-color, -20%);
+    -fx-border-color: derive(-menu-background-color, 10%);
+    -fx-border-width: 0 0 0 1;
+    -fx-pref-width: 50;
+    -fx-pref-height: 30;
+    -fx-font-size: 13;
+    -fx-text-fill: derive(-font-default-color, 0%);
+}
+#top-bar-button:hover{
+    -fx-background-color: derive(-menu-background-color, 10%);
+}
+
+
+
+#popup-drop-down{
+    -fx-background-color: derive(-menu-background-color, -5%);
+    -fx-pref-height: 30;
+}
+#popup-drop-down:hover{
+    -fx-background-color: derive(-menu-background-color, 5%);
+}
+#popup-drop-down .label{
+    -fx-text-alignment: center;
+    -fx-text-fill: derive(-font-default-color, 0%);
+    -fx-font-size: 14;
+}
+#popup-drop-down .context-menu{
+    -fx-padding: 0;
+}
+#popup-drop-down .menu-item:focused{
+    -fx-background-color: derive(-menu-background-color, 30%);
+}
+#popup-drop-down .menu-item{
+    -fx-background-color: derive(-menu-background-color, 20%);
+    -fx-pref-height: 30;
+}
+#popup-drop-down .menu-item .label{
+    -fx-text-fill: derive(-font-default-color, 0%);
+    -fx-font-size: 13;
+}

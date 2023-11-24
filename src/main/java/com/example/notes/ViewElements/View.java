@@ -2,15 +2,17 @@ package com.example.notes.ViewElements;
 
 import com.example.notes.Enums.Direction;
 import com.example.notes.FileHandling.Directory;
+import com.example.notes.Navigation.NavigationEvents;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class View extends BorderPane {
     private Stage stage;
     private Directory currentCollection;
-
+    private NavigationEvents navEvents;
     private CollectionView collection;
     public View(Stage stage, Directory directory){
+        navEvents = new NavigationEvents(this);
         this.currentCollection = directory;
         this.stage = stage;
         collection = new CollectionView(this);
@@ -37,5 +39,9 @@ public class View extends BorderPane {
 
     public Stage getStage(){
         return stage;
+    }
+
+    public NavigationEvents getNavEvents() {
+        return navEvents;
     }
 }

@@ -24,7 +24,7 @@ public class TopBar extends BorderPane {
 
     private void init(){
         setId("top-bar");
-        setLeft(initDropDowns(NavigationEvents.get().getNav()));
+        setLeft(initDropDowns(view.getNavEvents().getNav()));
         setRight(initButtons());
         initWindowDrag();
 
