@@ -3,8 +3,10 @@ package com.example.notes.ViewElements;
 import com.example.notes.Enums.Direction;
 import com.example.notes.FileHandling.Directory;
 import com.example.notes.Navigation.NavigationEvents;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class View extends BorderPane {
@@ -30,7 +32,11 @@ public class View extends BorderPane {
             setCenter(new Page());
         }
         else {
-            Label label = new Label("No open projects, ");
+            Label label = new Label("No open collection, Please Go to File->Open to open a collection");
+            VBox holder = new VBox();
+            holder.setAlignment(Pos.CENTER);
+            holder.getChildren().add(label);
+            setCenter(holder);
         }
     }
 
