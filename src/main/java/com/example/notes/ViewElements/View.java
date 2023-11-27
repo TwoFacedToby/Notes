@@ -3,26 +3,37 @@ package com.example.notes.ViewElements;
 import com.example.notes.Enums.Direction;
 import com.example.notes.FileHandling.Directory;
 import com.example.notes.Navigation.NavigationEvents;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class View extends BorderPane {
-    private Stage stage;
+    private Window stage;
     private Directory currentCollection;
     private NavigationEvents navEvents;
     private CollectionView collection;
-    public View(Stage stage, Directory directory){
+    public View(Window stage, Directory directory){
         navEvents = new NavigationEvents(this);
         this.currentCollection = directory;
         this.stage = stage;
-        collection = new CollectionView(this);
+        init();
 
+    }
+    private void init(){
         setId("view");
         setTop(new TopBar(this));
-        setLeft(new Sidebar(Direction.W, collection));
-        setRight(new Sidebar(Direction.E, null));
-        setCenter(new Page());
+        collection = new CollectionView(this);
+        if(currentCollection != null){
+            collection.setDirectory(currentCollection);
+            setLeft(new Sidebar(Direction.W, collection));
+            setRight(new Sidebar(Direction.E, null));
+            setCenter(new Page());
+        }
+        else {
+            Label label = new Label("No open projects, ");
+        }
     }
+
     public Directory getCurrentCollection(){
         return currentCollection;
     }

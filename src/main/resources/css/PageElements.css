@@ -9,7 +9,7 @@
 
 
 #view{
-    -fx-background-color:  derive(-font-default-color, 0%);
+    -fx-background-color:  derive(-menu-background-color, 0%);
 }
 #top-bar{
     -fx-background-color:  derive(-menu-background-color, -20%);
