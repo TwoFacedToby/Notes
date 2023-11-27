@@ -127,6 +127,15 @@ public class Popup extends Stage {
             close();
         });
     }
+    public void addCheckbox(String name, int expectedIndex){
+        BoolBox checkBox = new BoolBox();
+        checkBox.setLabelText(name);
+        setDefaultAnswer(new BoolAnswer(false), arraySize++);
+        content.getChildren().add(checkBox);
+        checkBox.setOnMouseClicked(e->{
+            answers[expectedIndex] = new BoolAnswer(checkBox.getValue());
+        });
+    }
     public void addDropDownChoice(String name, int expectedIndex){
         if(answerBox == null){
             setDefaultAnswer(new StringAnswer(name), arraySize++);
@@ -173,6 +182,16 @@ public class Popup extends Stage {
         }
         public int getAnswer(){
             return intAnswer;
+        }
+    }
+    public class BoolAnswer implements Answer {
+        private boolean boolAnswer;
+
+        public BoolAnswer(boolean boolAnswer){
+            this.boolAnswer = boolAnswer;
+        }
+        public boolean getAnswer(){
+            return boolAnswer;
         }
     }
 }

@@ -57,13 +57,60 @@ public class NavigationEvents {
     public void onNavClicked(Link link, View view){
         System.out.println(link.getName() + " Clicked");
         switch (link.getName()){
-            case "New" -> {
-                createNew(null);
-            }
+            case "New" -> createNew(null);
+            case "Open" -> open();
         }
     }
     public View getView(){
         return view;
+    }
+
+    public void open(){
+        Popup popup = new Popup(300, 200, "Open");
+
+        popup.addMessage("Choose Collection to Open");
+
+        ArrayList<Directory> collections = FileLoader.get().getCollections();
+        System.out.println("Size: " + collections.size());
+        for(int i = 0; i < collections.size(); i++){
+            if(collection != null){
+                if(!collections.get(i).getName().equals(collection.getName()))
+                    popup.addDropDownChoice(collections.get(i).getName(),0);
+            }
+            else popup.addDropDownChoice(collections.get(i).getName(),0);
+        }
+        popup.addSpacer(10);
+        popup.addCheckbox("Add in another window? ", 1);
+        popup.addCloseButton("Open");
+
+        Popup.Answer[] answers = popup.showAndWaitForInput();
+        if(answers == null) return;
+
+        Directory chosen = null;
+        try{
+            for(int i = 0; i < collections.size(); i++){
+                if(((Popup.StringAnswer)answers[0]).getAnswer().equals(collections.get(i).getName())) chosen = collections.get(i);
+            }
+        }catch (Exception e){
+            System.out.println("\nAnswer String Parsing Error: \n\n" + e.getMessage());
+        }
+        if(chosen == null) return;
+
+        boolean toOpenInNew = false;
+        try{
+            toOpenInNew = ((Popup.BoolAnswer)answers[1]).getAnswer();
+        }catch (Exception e){
+            System.out.println("\nAnswer Boolean Parsing Error: \n\n" + e.getMessage());
+        }
+        if(!toOpenInNew){
+            view.getStage().close();
+        }
+        Window window = new Window(chosen);
+
+
+
+
+
     }
 
     public void openFile(File file){
