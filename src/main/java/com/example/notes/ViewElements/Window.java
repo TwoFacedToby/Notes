@@ -1,7 +1,6 @@
 package com.example.notes.ViewElements;
 
 import com.example.notes.FileHandling.Directory;
-import com.example.notes.Navigation.NavigationEvents;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -10,7 +9,7 @@ import javafx.stage.WindowEvent;
 
 public class Window extends Stage {
 
-    private final double width = 1600, height = 900;
+    private final double screenWidth = 1600, screenHeight = 900;
     private final String title = "Notes";
     private Scene scene;
     private View view;
@@ -18,8 +17,7 @@ public class Window extends Stage {
     public Window(Directory collection){
         view = new View(this, collection);
         StageResizeHandle resizeHandle = new StageResizeHandle(view, this);
-        scene = new Scene(resizeHandle, width, height);
-
+        scene = new Scene(resizeHandle, screenWidth, screenHeight);
         scene.setFill(Color.TRANSPARENT);
         setCSS();
         setScene(scene);

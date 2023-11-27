@@ -11,6 +11,9 @@
 #view{
     -fx-background-color:  derive(-menu-background-color, 0%);
 }
+#start-screen{
+    -fx-background-color:  derive(-menu-background-color, 0%);
+}
 #top-bar{
     -fx-background-color:  derive(-menu-background-color, -20%);
     -fx-padding: 0 0 2 0;

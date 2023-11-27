@@ -23,8 +23,9 @@
 }
 #popup-label{
     -fx-text-fill: derive(-font-default-color, 0%);
-    -fx-font-size: 14;
-    -fx-font-weight: bold;
+    -fx-font-size: 16;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
 }
 
 #popup-button{
@@ -32,13 +33,13 @@
     -fx-border-radius: 0;
     -fx-border-width: 1;
     -fx-text-fill: derive(-font-default-color, -10%);
+    -fx-font-size: 14;
     -fx-border-color: derive(-menu-background-color, -10%);
-    -fx-background-color: derive(-menu-background-color, -10%);
+    -fx-background-color: derive(-menu-background-color, 0%);
 }
 #popup-button:hover{
-    -fx-text-fill: derive(-font-default-color, -10%);
-    -fx-border-color: derive(-menu-background-color, 10%);
     -fx-background-color: derive(-menu-background-color, 10%);
+
 }
 #top-bar{
     -fx-background-color: derive(-menu-background-color, -20%);

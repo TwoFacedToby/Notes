@@ -117,9 +117,11 @@ public class Popup extends Stage {
         if(choiceButtons == null) {
             setDefaultAnswer(new StringAnswer(""), arraySize++);
             choiceButtons = new HBox();
+            choiceButtons.setAlignment(Pos.CENTER);
             content.getChildren().add(choiceButtons);
         }
         Button button = new Button(name);
+        button.setId("popup-button");
         choiceButtons.getChildren().add(button);
         button.setOnAction(e -> {
             answers[expectedIndex] = new StringAnswer(name);
